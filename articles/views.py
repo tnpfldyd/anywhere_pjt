@@ -8,6 +8,7 @@ from django.http import HttpResponseForbidden, HttpResponse
 # Create your views here.
 def index(request):
   return render(request, 'articles/index.html', {'articles': Article.objects.all()})
+  
 
 @login_required
 def create(request):
