@@ -1,14 +1,36 @@
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.click {
+  text-decoration: none;
+  color: black
+}
+
+.click:hover {
+  text-decoration: none;
+  color: #3182f6;
+}
+
 .article-grid {
   display: grid;
   grid-template-columns: 25fr 50fr 25fr;
 }
 
 .aside-left {
-  padding: 80px 48px 40px;
+  padding: 80px 48px 80px 40px;
+}
+
+.section-center {
+  padding: 80px 40px;
 }
 
 .contentcard {
-  margin-bottom: 2rem;
+  border-radius: 15px;
   padding: 1rem;
 }
 
