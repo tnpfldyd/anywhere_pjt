@@ -14,16 +14,22 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
+    password = None
+
     class Meta:
         model = get_user_model()
-        fields = [
+        fields = (
             "email",
             "first_name",
             "last_name",
-        ]
+        )
 
 
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ["bio", "nickname", "image"]
+        fields = (
+            "bio",
+            "nickname",
+            "image",
+        )

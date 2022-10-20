@@ -1,3 +1,16 @@
+{% if request.user.is_authenticated %}
+<div class="d-flex justify-content-center">
+  <p class="my-auto mx-2">{{ request.user }}님</p>
+  <a href="{% url 'accounts:index' %}" class="my-auto mx-2">회원 목록</a>
+  <a href="{% url 'accounts:logout' %}" class="my-auto mx-2">로그아웃</a>
+</div>
+{% else %}
+<div class="d-flex justify-content-center">
+  <a href="{% url 'accounts:index' %}" class="my-auto mx-2">회원 목록</a>
+  <a href="{% url 'accounts:signup' %}" class="my-auto mx-2">회원가입</a>
+  <a href="{% url 'accounts:login' %}" class="my-auto mx-2">로그인</a>
+</div>
+{% endif %}
 <div class="row">
   <div class="col-4">
       <img src={% if person.profile.image %}"{{ person.profile.image.url }}"{% else %}"https://i.stack.imgur.com/34AD2.jpg"{% endif %} 
@@ -5,11 +18,25 @@
   </div>
   <div class="col-8">
       <h2>{{ person.username }}
+        <div>
+          팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }}
+        </div>
           {% if person.username == user.username %}
-          <a href="{% url 'accounts:profile_edit' %}"><button class="btn btn-success">프로필 편집</button></a>
+          <a href="{% url 'accounts:edit' %}">프로필 편집</a>
+          {% else %}
+          <div>
+            <form action="{% url 'accounts:follow' person.pk%}" method='POST'>
+              {% csrf_token %}
+              {% if user in person.followers.all %}
+                <input type="submit" value='팔로우 취소'>
+              {% else %}
+                <input type="submit" value='팔로우'>
+              {% endif %}
+            </form>
+          </div>  
           {% endif %}
       </h2>
       <p>{{ person.profile.nickname }}</p>
-      <p>{{ person.profile.description }}</p>
+      <p>{{ person.profile.bio }}</p>
   </div>
 </div>
