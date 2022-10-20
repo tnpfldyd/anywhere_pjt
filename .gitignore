@@ -1,4 +1,4 @@
 .DS_Store
 /venv
 secrets.json
-.sqlite3
+db.sqlite3
