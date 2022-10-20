@@ -19,7 +19,7 @@
     <!-- place navbar here -->
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'articles:index' %}"><img width="100%" height=30px"
+        <a class="navbar-brand" href="{% url 'articles:index' %}"><img width="100%" height="30px"
             src="{% static 'img/logo1.png' %}"> </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
           aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
           <ul class="navbar-nav me-auto">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'accounts:profile' request.user.id %}">{{ request.user }}님</a>
+              <a class="nav-link active" href="{% url 'accounts:profile' request.user %}">{{ request.user }}님</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'articles:index' %}">리뷰 목록</a>
