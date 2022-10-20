@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="d-flex justify-content-start">
-  <div class="p-4 mt-2 mb-5 contentcard" style="box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%); border-radius: 15px; ">
+  <div class="p-4 mt-2 mb-5 contentcard" style="border-radius: 15px; ">
     <div class="">
-      <h2>{{ person.title }}</h2>
-      <p class="text-muted m-0">{{ person.writer }} <span class="fw-lighter">| {{ person.created_at }}</span></p>
-      <p class="m-0"> {{ person.score }} </p>
+      <h2>{{ person.username }}</h2>
+      <div>
+        팔로잉 : {{ person.followings.all|length }} 팔로워 : {{ person.followers.all|length }}
+      </div>
     </div>
     <hr>
     <div class="mt-4">
-      <p>{{ person.content}}</p>
+      <p>{{ person.nickname}}</p>
+      <p>{{ person.bio}}</p>
     </div>
   </div>
 </div>

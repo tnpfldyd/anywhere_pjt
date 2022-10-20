@@ -1,9 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load django_bootstrap5 %}
+
+<div>
+  <div class="article-grid">
+    <aside class="aside-left">
+      <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">오늘 많이본 아티클</h2>
+      <div class="contentcard">asdasd<p>asdasdas</p>
+        <p>asdasdas</p>
+        <p>asdasdas</p>
+      </div>
+      <div class="contentcard">asdasd<p>asdasdas</p>
+        <p>asdasdas</p>
+        <p>asdasdas</p>
+      </div>
+      <div class="contentcard">asdasd<p>asdasdas</p>
+        <p>asdasdas</p>
+        <p>asdasdas</p>
+      </div>
+    </aside>
+    <section class="aside-left">
+      <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">최신 아티클</h2>
+      <div class="contentcard">asdasd<p>asdasdas</p>
+        <p>asdasdas</p>
+        <p>asdasdas</p>
+    </section>
+    <aside class="aside-left">
+      <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">반응 좋은 아티클</h2>
+      <div class="contentcard">asdasd<p>asdasdas</p>
+        <p>asdasdas</p>
+        <p>asdasdas</p>
+    </aside>
+  </div>
+</div>
 <div class="text-end">
   <a href="{% url 'articles:create' %}" class="btn btn-primary">작성</a>
 </div>
+
 <div class="row">
   {% for article in articles %}
   <div class="card col-3 m-1 px-0" style="height: 300px;">

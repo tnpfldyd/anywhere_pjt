@@ -1,0 +1,20 @@
+.article-grid {
+  display: grid;
+  grid-template-columns: 25fr 50fr 25fr;
+}
+
+.aside-left {
+  padding: 80px 48px 40px;
+}
+
+.contentcard {
+  margin-bottom: 2rem;
+  padding: 1rem;
+}
+
+.contentcard:hover {
+  border-radius: 15px;
+  transform: translateY(-5px);
+  transition: all ease-in-out .3s;
+  box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%);
+}
