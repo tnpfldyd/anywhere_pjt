@@ -2,7 +2,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 <div class="d-flex justify-content-center">
-  <p class="my-auto mx-2">{{ request.user }}님</p>
+  <p class="my-auto mx-2">{{ request.user }}님 </p>
   <a href="{% url 'accounts:index' %}" class="my-auto mx-2">회원 목록</a>
   <a href="{% url 'accounts:logout' %}" class="my-auto mx-2">로그아웃</a>
 </div>
