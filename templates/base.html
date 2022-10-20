@@ -29,23 +29,24 @@
           <ul class="navbar-nav me-auto">
             {% if request.user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'accounts:detail' request.user.id %}">{{ request.user }}님</a>
+              <a class="nav-link active fw-light" href="{% url 'accounts:profile' request.user %}">{{ request.user
+                }}님</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'articles:index' %}">리뷰 목록</a>
+              <a class="nav-link active fw-light" href="{% url 'articles:index' %}">리뷰 목록</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'articles:create' %}">리뷰 작성</a>
+              <a class="nav-link active fw-light" href="{% url 'articles:create' %}">리뷰 작성</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'accounts:logout' %}">로그아웃</a>
+              <a class="nav-link active fw-light" href="{% url 'accounts:logout' %}">로그아웃</a>
             </li>
             {% else %}
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'accounts:login' %}">로그인</a>
+              <a class="nav-link active fw-lighter" href="{% url 'accounts:login' %}">로그인</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="{% url 'accounts:signup' %}">회원가입</a>
+              <a class="nav-link active fw-lighter" href="{% url 'accounts:signup' %}">회원가입</a>
             </li>
             {% endif %}
           </ul>
@@ -55,7 +56,7 @@
 
   </header>
   <main class="container">
-    {% block content %}{% endblock content %}
+    {% block content %}{% endblock %}
   </main>
   <footer>
     <!-- place footer here -->
