@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 {% load django_bootstrap5 %}
 
@@ -6,6 +7,22 @@
   <div class="article-grid">
     <aside class="aside-left">
       <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">오늘 많이본 아티클</h2>
+      <ul>
+        <li>
+          <a class="click" href="{% url 'articles:index' %}">
+            <div class="contentcard h-100 p-0" style="border-radius: 15px;">
+              <img width="287px" height="287px" class="card-img-top" src="{% static 'img/logo1.png' %}">
+              <div class="card-body p-3" style="border-radius: 0 0 15px 15px; background-color: rgb(255, 179, 49);">
+                <div class=" d-flex flex-start" style="flex-direction: column;">
+                  <h4 style="font-size: 18px">{{ article.title }}아티클 제목</h4>
+                  <span style="font-size: 14px; font-weight: lighter;">{{ article.user }}아티클 작가</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+
       <div class="contentcard">asdasd<p>asdasdas</p>
         <p>asdasdas</p>
         <p>asdasdas</p>
@@ -19,7 +36,7 @@
         <p>asdasdas</p>
       </div>
     </aside>
-    <section class="aside-left">
+    <section class="section-center">
       <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">최신 아티클</h2>
       <div class="contentcard">asdasd<p>asdasdas</p>
         <p>asdasdas</p>
