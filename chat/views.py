@@ -17,10 +17,8 @@ def index(request):
 def send(request, pk):
     form = DirectMessageForm(request.POST or None)
     if form.is_valid():
-        print(-1)
-        print(MessageRoom.objects.filter(touser_id=request.user.id, fromuser_id=pk))
-        if MessageRoom.objects.filter(touser_id=request.user.id, fromuser_id=pk):
-            room = MessageRoom.objects.get(touser_id=request.user.id, fromuser_id=pk)
+        if MessageRoom.objects.filter(to_user_id=request.user.id, from_user_id=pk).exists():
+            room = MessageRoom.objects.get(to_user_id=request.user.id, from_user_id=pk)
             temp = form.save(commit=False)
             temp.room_number_id = room.id
             temp.who_id = pk
@@ -31,8 +29,8 @@ def send(request, pk):
             room.save()
             return redirect("chat:index")
         else:
-            if MessageRoom.objects.filter(touser_id=pk, fromuser_id=request.user.id):
-                room = MessageRoom.objects.get(touser_id=pk, fromuser_id=request.user.id)
+            if MessageRoom.objects.filter(to_user_id=pk, from_user_id=request.user.id).exists():
+                room = MessageRoom.objects.get(to_user_id=pk, from_user_id=request.user.id)
                 temp = form.save(commit=False)
                 temp.room_number_id = room.id
                 temp.who_id = pk
@@ -44,8 +42,8 @@ def send(request, pk):
             else:
                 temp = form.save(commit=False)
                 room = MessageRoom.objects.create(
-                    touser_id=request.user.id,
-                    fromuser_id=pk,
+                    to_user_id=request.user.id,
+                    from_user_id=pk,
                     count=1,
                     last_user=request.user,
                     last_message=temp.content,

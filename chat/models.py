@@ -5,11 +5,11 @@ from django.conf import settings
 
 
 class MessageRoom(models.Model):
-    touser = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="senduser"
+    to_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="send_user"
     )
-    fromuser = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="receiveruser"
+    from_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="receiver_user"
     )
     count = models.IntegerField(default=0)
     last_user = models.CharField(max_length=50)
