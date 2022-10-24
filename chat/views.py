@@ -8,10 +8,16 @@ from .forms import DirectMessageForm
 
 @login_required
 def index(request):
-    # send = request.user.touser_set.all()
-    # receiver = request.user.fromuser_set.all()
-    # context = {"messagerooms": send.union(receiver, all=True).order_by("-updated_at")}
-    return render(request, "chat/index.html")
+    send = MessageRoom.objects.filter(to_user=request.user)
+    receiver = MessageRoom.objects.filter(from_user=request.user)
+    context = {"messagerooms": send.union(receiver, all=False).order_by("-updated_at")}
+    return render(request, "chat/index.html", context)
+
+
+def detail(request, user_id):
+    message = DirectMessage.objects.filter()
+    form = DirectMessageForm()
+    pass
 
 
 def send(request, pk):
@@ -39,6 +45,7 @@ def send(request, pk):
                 room.last_message = temp.content
                 room.count += 1
                 room.save()
+                return redirect("chat:index")
             else:
                 temp = form.save(commit=False)
                 room = MessageRoom.objects.create(
