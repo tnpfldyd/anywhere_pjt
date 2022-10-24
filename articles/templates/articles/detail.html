@@ -1,28 +1,57 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load django_bootstrap5 %}
-{{article.user.username}}
-{{article.title}}
-{{article.content}}
-{{article.updated_at}}
-{% if article.image %}
-<img src="{{ article.image.url }}">
-{% endif %}
-{% if not request.user.is_anonymous %}
-<form action="{% url 'articles:comment' article.pk %}" method="POST">
-  {% csrf_token %}
-  {% bootstrap_form form %}
-  {% bootstrap_button button_type='submit' content='작성' %}
-</form>
-{% endif %}
-{% for comment in article.comment_set.all %}
-<div class="d-flex justify-content-between">
-  <p>{{comment.content}}{{comment.user.username}}</p>
-  <div>{{comment.created_at}}
-    {% if request.user.id == comment.user_id %}
-    <a class='btn btn-danger' href="{% url 'articles:comment_delete' article.pk comment.pk %}">삭제</a>
-    {% endif %}
+{% load widget_tweaks %}
+<section>
+  <div style='width: 100vw; height:365px;'>
+    {% if article.image %}
+    <div class="detail-title-div d-flex justify-content-center" style="position: relative; align-items: center;">
+      <img src="{{ article.image.url }}" style='width: 100vw; height:370px; object-fit:cover; filter:brightness(0.6);'>
+      {% else %}
+      <div class="bg-dark" style="width: 100vw; height: 370px"></div>
+      {% endif %}
+      <div
+        style="width: 1048px; display: flex; flex-direction: column; justify-content: center; position: absolute; align-items: center;">
+        <h2 style="color:white; font-size: 58px;">{{ article.title }}</h2>
+        <p class='fw-light' style="color:white; font-size: 17px;">
+          {{ article.updated_at|date:'Y.m.d' }} ' by {{ article.user.username }}</p>
+      </div>
+    </div>
   </div>
-</div>
-{% endfor %}
+  <div class="container" style="max-width: 1048px;">
+    <p class="my-5" style="font-size: 18px; font-weight: 300; color: rgb(78, 89, 104)">{{ article.content }}</p>
+    <p style="font-size: 16px; color: rgb(139, 149, 161); font-weight: lighter;">댓글
+      <span style="color: #3182f6; font-weight: 400;">{{ article.comment_set.all|length }}</span>
+    </p>
+    <hr>
+    {% if request.user.is_authenticated %}
+    <form action="{% url 'articles:comment' article.pk %}" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col-11">
+          {{ comment.content|add_class:"form-control comment-input" }}
+        </div>
+        <div class="col-1">
+          <input class="btn btn-primary w-100" type="submit" value="등록">
+        </div>
+      </div>
+    </form>
+    {% endif %}
+    {% for comment in article.comment_set.all %}
+    <div class="d-flex justify-content-between my-2">
+      <div class="">
+        <p class="text-muted mb-1" style="font-weight: 150;">{{ comment.user }} | {{ comment.created_at }}
+        </p>
+        <p>{{ comment.content }}</p>
+      </div>
+      {% if request.user == comment.username %}
+      <form action="{% url 'articles:comment_delete' article.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input class="btn btn-danger" type="submit" value="삭제">
+      </form>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}

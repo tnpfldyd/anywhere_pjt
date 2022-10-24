@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "accounts",
     "articles",
     "imagekit",
+    'widget_tweaks',
     "django_bootstrap5",
     "django.contrib.admin",
     "django.contrib.auth",

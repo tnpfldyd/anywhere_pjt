@@ -8,9 +8,11 @@ from django.http import HttpResponseForbidden, HttpResponse
 # Create your views here.
 def index(request):
     recents = Article.objects.order_by("-pk")
+    likes = Article.objects.order_by("-article_liking")
 
     context = {
         'recents': recents,
+        'likes': likes,
     }
 
     return render(request, 'articles/index.html', context)
@@ -29,7 +31,7 @@ def create(request):
 def detail(request, pk):
     context = {
         'article': Article.objects.get(pk=pk),
-        'form': CommentForm()
+        'comment': CommentForm()
     }
     return render(request, 'articles/detail.html', context)
 
