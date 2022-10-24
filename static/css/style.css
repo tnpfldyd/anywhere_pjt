@@ -40,3 +40,10 @@ li {
   transition: all ease-in-out .3s;
   box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%);
 }
+
+.recent-img:hover {
+  border-radius: 15px;
+  transform: translateY(-5px);
+  transition: all ease-in-out .3s;
+  box-shadow: 4px 12px 30px 6px rgb(0 0 0 / 9%);
+}
