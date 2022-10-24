@@ -14,14 +14,25 @@ def index(request):
     return render(request, "chat/index.html", context)
 
 
-def detail(request, user_id):
-    message = DirectMessage.objects.filter()
+@login_required
+def detail(request, room_pk):
+    send = MessageRoom.objects.filter(to_user=request.user)
+    receiver = MessageRoom.objects.filter(from_user=request.user)
+    messages = DirectMessage.objects.filter(room_number_id=room_pk)
+    room_info = MessageRoom.objects.get(pk=room_pk)
     form = DirectMessageForm()
-    pass
+    context = {
+        "room_info": room_info,
+        "messagerooms": send.union(receiver, all=False).order_by("-updated_at"),
+        "messages": messages,
+        "form": form,
+    }
+    return render(request, "chat/detail.html", context)
 
 
+@login_required
 def send(request, pk):
-    form = DirectMessageForm(request.POST or None)
+    form = DirectMessageForm(request.POST)
     if form.is_valid():
         if MessageRoom.objects.filter(to_user_id=request.user.id, from_user_id=pk).exists():
             room = MessageRoom.objects.get(to_user_id=request.user.id, from_user_id=pk)
@@ -33,7 +44,7 @@ def send(request, pk):
             room.last_message = temp.content
             room.count += 1
             room.save()
-            return redirect("chat:index")
+            return redirect("chat:detail", room.pk)
         else:
             if MessageRoom.objects.filter(to_user_id=pk, from_user_id=request.user.id).exists():
                 room = MessageRoom.objects.get(to_user_id=pk, from_user_id=request.user.id)
@@ -45,7 +56,7 @@ def send(request, pk):
                 room.last_message = temp.content
                 room.count += 1
                 room.save()
-                return redirect("chat:index")
+                return redirect("chat:detail", room.pk)
             else:
                 temp = form.save(commit=False)
                 room = MessageRoom.objects.create(
@@ -58,5 +69,5 @@ def send(request, pk):
                 temp.room_number_id = room.id
                 temp.who_id = pk
                 temp.save()
-                return redirect("chat:index")
-    return render(request, "chat/send.html", {"form": form})
+                return redirect("chat:detail", room.pk)
+    return render(request, "chat/detail.html", {"form": form})
