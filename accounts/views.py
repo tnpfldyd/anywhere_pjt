@@ -57,7 +57,6 @@ def edit(request):
         "user_change_form": user_change_form,
         "profile_form": profile_form,
     }
-    print(request)
     return render(request, "accounts/edit.html", context)
 
 

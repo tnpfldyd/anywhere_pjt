@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load django_bootstrap5 %}
+{% for messageroom in messagerooms %}
+<p>{{ messageroom }}</p>
+{% endfor %}
+<div class="container">
+  {% for message in messages %}
+  {% if message.who_id == request.user.id %}
+  <div class="text-end">
+  <p>{{message.content}}</p>
+
+  </div>
+  {% else %}
+  <div class="text-start">
+  <p>{{message.content}}</p>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% if request.user.id == room_info.from_user_id %}
+  <form action="{% url 'chat:send' room_info.to_user_id %}" method="POST">
+  {% else %}
+  <form action="{% url 'chat:send' room_info.from_user_id %}" method="POST">
+  {% endif %}
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% bootstrap_button button_type='submit' content='전송' %}
+  </form>
+</div>
+{% endblock %}
