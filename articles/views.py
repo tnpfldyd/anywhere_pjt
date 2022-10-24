@@ -7,7 +7,13 @@ from django.http import HttpResponseForbidden, HttpResponse
 
 # Create your views here.
 def index(request):
-  return render(request, 'articles/index.html', {'articles': Article.objects.all()})
+    recents = Article.objects.order_by("-pk")
+
+    context = {
+        'recents': recents,
+    }
+
+    return render(request, 'articles/index.html', context)
   
 
 @login_required
