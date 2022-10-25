@@ -5,7 +5,7 @@
 
 <div class="px-3">
   <div class="article-grid">
-    <aside class="aside-left">
+    <aside class="aside-left" style="overflow-y: scroll; height: calc(100vh - 60px);">
       <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">오늘 많이본 아티클</h2>
       <ul>
         {% for recent in recents %}
@@ -27,7 +27,7 @@
         {% endfor %}
       </ul>
     </aside>
-    <section class="section-center">
+    <section class="section-center" style="overflow-y: scroll; height: calc(100vh - 60px);">
       <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">최신 아티클</h2>
       <ul>
         {% for recent in recents %}
@@ -52,7 +52,7 @@
         {% endfor %}
       </ul>
     </section>
-    <aside class="aside-left">
+    <aside class="aside-left" style="overflow-y: scroll; height: calc(100vh - 60px);">
       <h2 class="mb-3" style="font-size: 14px; color: #8b95a1">반응 좋은 아티클</h2>
       <ul>
         {% for recent in recents %}
