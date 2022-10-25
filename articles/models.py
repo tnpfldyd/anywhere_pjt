@@ -16,14 +16,14 @@ class Article(models.Model):
         format="JPEG",
         options={"quality": 90},
     )
-    article_liking = models.ManyToManyField("self", symmetrical=False, related_name="article_liker")
+    article_liking = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="article_liker")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    comment_liking = models.ManyToManyField("self", symmetrical=False, related_name="comment_liker")
+    comment_liking = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="comment_liker")
     content = models.CharField(max_length=80)
     created_at = models.DateTimeField(auto_now_add=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)

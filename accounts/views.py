@@ -11,7 +11,8 @@ from django.contrib.auth.decorators import login_required
 
 
 def index(request):
-    return render(request, "accounts/index.html")
+    users = get_user_model().objects.all()
+    return render(request, "accounts/index.html", {"users": users})
 
 
 def profile(request, username):
