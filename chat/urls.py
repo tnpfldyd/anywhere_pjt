@@ -5,7 +5,7 @@ app_name = "chat"
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("<int:pk>/send", views.send, name="send"),
-    path("<int:room_pk>/detail", views.detail, name="detail"),
-    path("<int:pk>/first_send", views.first_send, name="first_send"),
+    path("<int:pk>/send/", views.send, name="send"),
+    path("<int:room_pk>/", views.detail, name="detail"),
+    path("<int:pk>/first_send/", views.first_send, name="first_send"),
 ]

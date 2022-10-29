@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import MessageRoom, DirectMessage
 from django.contrib.auth.decorators import login_required
 from .forms import DirectMessageForm
 from django.contrib.auth import get_user_model
+from django.views.decorators.http import require_POST
 
 # Create your views here.
 
@@ -18,22 +19,25 @@ def index(request):
 
 @login_required
 def detail(request, room_pk):
-    user = get_user_model().objects.get(pk=request.user.pk)
-    send = user.send_user.all()
-    receiver = user.receiver_user.all()
-    messages = DirectMessage.objects.filter(room_number_id=room_pk)
-    room_info = MessageRoom.objects.get(pk=room_pk)
-    form = DirectMessageForm()
-    context = {
-        "room_info": room_info,
-        "messagerooms": send.union(receiver, all=False).order_by("-updated_at"),
-        "messages": messages,
-        "form": form,
-    }
-    return render(request, "chat/detail.html", context)
+    room_info = get_object_or_404(MessageRoom, pk=room_pk)
+    if request.user == room_info.to_user or request.user == room_info.from_user:
+        user = get_user_model().objects.get(pk=request.user.pk)
+        send = user.send_user.all()
+        receiver = user.receiver_user.all()
+        messages = DirectMessage.objects.filter(room_number_id=room_pk)
+        room_info = get_object_or_404(MessageRoom, pk=room_pk)
+        form = DirectMessageForm()
+        context = {
+            "room_info": room_info,
+            "messagerooms": send.union(receiver, all=False).order_by("-updated_at"),
+            "messages": messages,
+            "form": form,
+        }
+        return render(request, "chat/detail.html", context)
+    return redirect("chat:index")
 
 
-@login_required
+@require_POST
 def send(request, pk):
     form = DirectMessageForm(request.POST)
     if form.is_valid():
